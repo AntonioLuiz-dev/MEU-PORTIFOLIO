@@ -116,3 +116,22 @@ toggle.addEventListener('click', () => {
 
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
+
+// MENU MOBILE (HAMBÚRGUER)
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+    hamburger.classList.toggle('active');
+  });
+
+  // Fecha o menu ao clicar em um link
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      navMenu.classList.remove('active');
+      hamburger.classList.remove('active');
+    });
+  });
+}

@@ -156,6 +156,41 @@ width: 100%;
   transform: rotate(20deg);
 }
 
+/* ===== TEMA CLARO ===== */
+body.light {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* Textos */
+body.light p {
+  color: #000000;
+}
+
+/* Header */
+body.light .header {
+  background: rgba(241,245,249,0.9);
+}
+
+/* Links do menu */
+body.light .header nav a {
+  color: #0f172a;
+}
+
+body.light .header nav a.active {
+  color: #0284c7;
+}
+
+/* Cards */
+body.light .project-card {
+  background: #ffffff;
+}
+
+/* Seções */
+body.light .projects {
+  background: #e2e8f0;
+}
+
 /* HERO */
 .hero {
 background: linear-gradient(rgba(15,23,42,.7), rgba(15,23,42,.9)), url('bg.jpg') center/cover fixed;
