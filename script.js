@@ -1,6 +1,7 @@
-// Parallax + scroll reveal + active menu
-window.addEventListener('scroll', () => {
-
+/* ===========================
+   PARALLAX + REVEAL
+=========================== */
+function handleScrollEffects() {
   // Parallax
   document.querySelectorAll('.parallax').forEach(section => {
     section.style.backgroundPositionY = -(window.scrollY * 0.4) + 'px';
@@ -21,29 +22,72 @@ window.addEventListener('scroll', () => {
       card.classList.add('active');
     }
   });
+}
 
-  // Active menu link
-  document.querySelectorAll('section').forEach(sec => {
-    const scrollY = window.scrollY;
-    const offset = sec.offsetTop - 120;
-    const height = sec.offsetHeight;
-    const id = sec.getAttribute('id');
+window.addEventListener('scroll', handleScrollEffects);
+window.addEventListener('load', handleScrollEffects);
 
-    if (scrollY >= offset && scrollY < offset + height) {
-      document
-        .querySelectorAll('.header nav a')
-        .forEach(a => a.classList.remove('active'));
 
-      const activeLink = document.querySelector(
-        '.header nav a[href="#' + id + '"]'
-      );
 
-      if (activeLink) activeLink.classList.add('active');
-    }
+/* ===========================
+   SCROLL SPY MODERNO
+=========================== */
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.header nav a');
+
+const spyObserver = new IntersectionObserver(
+  entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+
+        navLinks.forEach(link => link.classList.remove('active'));
+
+        const activeLink = document.querySelector(
+          `.header nav a[href="#${id}"]`
+        );
+
+        if (activeLink) activeLink.classList.add('active');
+      }
+    });
+  },
+  {
+    threshold: 0.6
+  }
+);
+
+sections.forEach(section => spyObserver.observe(section));
+
+
+
+/* ===========================
+   SCROLL SUAVE COM OFFSET
+=========================== */
+document.querySelectorAll('.header nav a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+
+    const targetId = link.getAttribute('href');
+    const target = document.querySelector(targetId);
+    const headerHeight = document.querySelector('.header').offsetHeight;
+
+    const position =
+      target.getBoundingClientRect().top +
+      window.pageYOffset -
+      headerHeight;
+
+    window.scrollTo({
+      top: position,
+      behavior: 'smooth'
+    });
   });
 });
 
-// Lazy loading + skeleton
+
+
+/* ===========================
+   LAZY LOADING + SKELETON
+=========================== */
 document.querySelectorAll('.lazy-img').forEach(img => {
   img.addEventListener('load', () => {
     img.classList.add('loaded');
@@ -51,7 +95,11 @@ document.querySelectorAll('.lazy-img').forEach(img => {
   });
 });
 
-// Dark / Light toggle
+
+
+/* ===========================
+   DARK / LIGHT MODE
+=========================== */
 const toggle = document.getElementById('themeToggle');
 const body = document.body;
 
@@ -68,32 +116,3 @@ toggle.addEventListener('click', () => {
 
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
-
-// 🔥 SCROLL SUAVE + FORÇA ATIVAÇÃO DAS ANIMAÇÕES
-document.querySelectorAll('.header nav a').forEach(link => {
-  link.addEventListener('click', function (e) {
-    e.preventDefault();
-
-    const targetId = this.getAttribute('href');
-    const target = document.querySelector(targetId);
-    const headerHeight = document.querySelector('.header').offsetHeight;
-
-    const targetPosition =
-      target.getBoundingClientRect().top +
-      window.pageYOffset -
-      headerHeight;
-
-    window.scrollTo({
-      top: targetPosition,
-      behavior: 'smooth'
-    });
-
-    // 🔥 força disparo do reveal após o scroll
-    setTimeout(() => {
-      window.dispatchEvent(new Event('scroll'));
-    }, 300);
-  });
-});
-
-// 🔥 Garante animações ao carregar a página
-window.dispatchEvent(new Event('scroll'));
