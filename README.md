@@ -39,6 +39,8 @@ Portfólio pessoal desenvolvido com HTML, CSS e JavaScript, apresentando projeto
 
 https://antonioluiz-dev.github.io/MEU-PORTIFOLIO/
 
+antonioluizdev.vercel.app
+
 ## Contato
 
 - GitHub: https://github.com/AntonioLuiz-dev
