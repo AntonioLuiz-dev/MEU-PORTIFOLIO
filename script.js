@@ -28,9 +28,8 @@ window.addEventListener('scroll', handleScrollEffects);
 window.addEventListener('load', handleScrollEffects);
 
 
-
 /* ===========================
-   SCROLL SPY MODERNO
+   SCROLL SPY
 =========================== */
 const sections = document.querySelectorAll('section');
 const navLinks = document.querySelectorAll('.header nav a');
@@ -40,24 +39,16 @@ const spyObserver = new IntersectionObserver(
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const id = entry.target.id;
-
         navLinks.forEach(link => link.classList.remove('active'));
-
-        const activeLink = document.querySelector(
-          `.header nav a[href="#${id}"]`
-        );
-
+        const activeLink = document.querySelector(`.header nav a[href="#${id}"]`);
         if (activeLink) activeLink.classList.add('active');
       }
     });
   },
-  {
-    threshold: 0.6
-  }
+  { threshold: 0.6 }
 );
 
 sections.forEach(section => spyObserver.observe(section));
-
 
 
 /* ===========================
@@ -76,13 +67,9 @@ document.querySelectorAll('.header nav a').forEach(link => {
       window.pageYOffset -
       headerHeight;
 
-    window.scrollTo({
-      top: position,
-      behavior: 'smooth'
-    });
+    window.scrollTo({ top: position, behavior: 'smooth' });
   });
 });
-
 
 
 /* ===========================
@@ -94,7 +81,6 @@ document.querySelectorAll('.lazy-img').forEach(img => {
     img.parentElement.classList.add('loaded');
   });
 });
-
 
 
 /* ===========================
@@ -110,14 +96,15 @@ if (localStorage.getItem('theme') === 'light') {
 
 toggle.addEventListener('click', () => {
   body.classList.toggle('light');
-
   const isLight = body.classList.contains('light');
   toggle.textContent = isLight ? '☀️' : '🌙';
-
   localStorage.setItem('theme', isLight ? 'light' : 'dark');
 });
 
-// MENU MOBILE (HAMBÚRGUER)
+
+/* ===========================
+   MENU MOBILE
+=========================== */
 const hamburger = document.getElementById('hamburger');
 const navMenu = document.getElementById('nav-menu');
 
@@ -127,7 +114,6 @@ if (hamburger && navMenu) {
     hamburger.classList.toggle('active');
   });
 
-  // Fecha o menu ao clicar em um link
   navMenu.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navMenu.classList.remove('active');
